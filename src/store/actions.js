@@ -13,3 +13,10 @@ export const MINUS = (n) => {
     }
 }
 
+// 异步action
+// 返回一个带有dipatch的函数给 store调用
+export const ASYNCMINUS = (n) => (dispatch) => {
+    setTimeout(() => {
+        dispatch(MINUS(n))
+    },1000)
+}
