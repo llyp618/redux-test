@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {ADD,MINUS} from './store/actions'
+import {bindActionCreators} from 'redux'
 class App extends React.Component {
     render(){
         const {number, ADD, MINUS} = this.props
@@ -24,10 +25,18 @@ let mapStateToProps = (state) => {
     }
 }
 let mapDispatchToProps = (dispatch) => {
-    return {
-        ADD: (n) => dispatch(ADD(n)),
-        MINUS: (n) => dispatch(MINUS(n))
-    }
+    // 以下两种方法效果是一样的
+    /* 方法一：*/
+    // return {
+    //     ADD: (n) => dispatch(ADD(n)),
+    //     MINUS: (n) => dispatch(MINUS(n))
+    // }
+    /* 方法二 */
+    return bindActionCreators({
+        ADD,
+        MINUS
+    },dispatch)
+
 }
 App = connect(mapStateToProps, mapDispatchToProps)(App)
 
