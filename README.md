@@ -1,1 +1,1 @@
-redux 起步
+使用redux-thunk Middleware 处理异步aciton

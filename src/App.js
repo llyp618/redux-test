@@ -1,17 +1,25 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {ADD,MINUS} from './store/actions'
-import {bindActionCreators} from 'redux'
 class App extends React.Component {
+    componentDidMount(){
+      function* AAA_LU(){
+        let a;
+        yield a = 1;
+        yield alert(1)
+      }
+      AAA_LU()
+    }
     render(){
-        const {number, ADD, MINUS} = this.props
+        const {number, ADD, MINUS, ASYNCMINUS, ASYNCADD} = this.props
         return (
             <div>
                 <div>result: {number}</div>
                 <div>
                     <input ref="n" />
                     <button onClick={() => ADD(parseInt(this.refs.n.value,10) || 1)}>add</button>
-                    <button onClick={() => MINUS(parseInt(this.refs.n.value, 10) || 1)}>minus</button>
+                    <button onClick={() => MINUS(parseInt(this.refs.n.value,10) || 1)}>minus</button>
+                    <button onClick={() => ASYNCMINUS(parseInt(this.refs.n.value, 10) || 1)}>ASYNCminus</button>
+                    <button onClick={() => ASYNCADD(parseInt(this.refs.n.value, 10) || 1)}>ASYNCadd</button>
                 </div>
             </div>
         )
@@ -25,18 +33,12 @@ let mapStateToProps = (state) => {
     }
 }
 let mapDispatchToProps = (dispatch) => {
-    // 以下两种方法效果是一样的
-    /* 方法一：*/
-    // return {
-    //     ADD: (n) => dispatch(ADD(n)),
-    //     MINUS: (n) => dispatch(MINUS(n))
-    // }
-    /* 方法二 */
-    return bindActionCreators({
-        ADD,
-        MINUS
-    },dispatch)
-
+    return {
+        ADD: (n) => dispatch({type: 'ADD', payload: n}),
+        MINUS: (n) => dispatch({type: 'MINUS', payload: n}),
+        ASYNCMINUS: (n) => dispatch({type: 'ASYNCMINUS', payload: n}),
+        ASYNCADD: (n) => dispatch({type: 'ASYNCADD', payload: n})
+    }
 }
 App = connect(mapStateToProps, mapDispatchToProps)(App)
 
