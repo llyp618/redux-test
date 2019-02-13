@@ -1,14 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 class App extends React.Component {
-    componentDidMount(){
-      function* AAA_LU(){
-        let a;
-        yield a = 1;
-        yield alert(1)
-      }
-      AAA_LU()
-    }
     render(){
         const {number, ADD, MINUS, ASYNCMINUS, ASYNCADD} = this.props
         return (
